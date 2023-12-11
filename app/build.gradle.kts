@@ -71,7 +71,7 @@ dependencies {
 
     // Retrofit and okHttp
     implementation("com.squareup.retrofit2:retrofit:$squareupVersion")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:$squareupVersion")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
     // Coroutines and viewmode library
