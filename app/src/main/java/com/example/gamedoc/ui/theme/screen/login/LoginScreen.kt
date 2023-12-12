@@ -28,7 +28,7 @@ fun LoginScreen(
 
     when(loginUiState){
         is LoginUiState.Error ->
-            ErrorScreen(retryAction = { /*TODO*/ })
+            ErrorScreen(retryAction = { loginViewModel.relogin() }, loginUiState.err.message)
         is LoginUiState.Loading ->
             LoadingScreen()
         is LoginUiState.Success ->
@@ -68,14 +68,16 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
  * The home screen displaying error message with re-attempt button.
  */
 @Composable
-fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
+fun ErrorScreen(retryAction: () -> Unit,
+                message: String,
+                modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(imageVector = Icons.Default.ErrorOutline, contentDescription = "Error")
-        Text(text = "Something wrong", modifier = Modifier.padding(16.dp))
+        Text(text = message, modifier = Modifier.padding(16.dp))
         Button(onClick = retryAction) {
             Text("Try again")
         }
