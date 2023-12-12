@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cached
 import androidx.compose.material.icons.filled.ErrorOutline
@@ -15,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.gamedoc.model.LoginBodyRes
+import com.example.gamedoc.model.user.LoginBodyRes
 
 @Composable
 fun LoginScreen(
@@ -36,12 +38,21 @@ fun LoginScreen(
 
 @Composable
 fun SuccessScreen(data: LoginBodyRes){
-    Column(
+    LazyColumn(
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = data.id)
-        Text(text = data.role)
-        Text(text = data.token)
+        item {
+            Text(text = data.id)
+        }
+        item {
+            Text(text = data.role)
+        }
+        item {
+            Text(text = data.token)
+        }
+        item {
+            Text(text = "\n\n ${data.toString()}")
+        }
     }
 }
 

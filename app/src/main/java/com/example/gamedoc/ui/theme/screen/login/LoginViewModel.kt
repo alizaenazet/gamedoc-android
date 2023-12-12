@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gamedoc.model.LoginBodyRes
+import com.example.gamedoc.model.user.LoginBodyRes
 import com.example.gamedoc.network.user.UserContainer
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -30,11 +30,13 @@ class LoginViewModel(): ViewModel() {
         viewModelScope.launch {
             _loginUiState = LoginUiState.Loading;
             try {
-                val loginData = UserContainer().userRepository.userLogin("correctemail@email.com","correctpassword123")
+                val loginData = UserContainer().userRepository.userLogin("","")
                 _loginUiState = LoginUiState.Success(loginData)
             }catch (e: IOException){
+                println(e.message)
                 _loginUiState = LoginUiState.Error
             }catch (e: HttpException){
+                println(e.message)
                 _loginUiState = LoginUiState.Error
             }
         }

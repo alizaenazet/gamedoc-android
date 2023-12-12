@@ -1,4 +1,4 @@
-package com.example.gamedoc.model
+package com.example.gamedoc.model.user
 
 data class LoginBodyRes(
     val id: String,

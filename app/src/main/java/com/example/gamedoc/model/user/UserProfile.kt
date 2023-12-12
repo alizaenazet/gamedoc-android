@@ -1,4 +1,4 @@
-package com.example.gamedoc.model
+package com.example.gamedoc.model.user
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
