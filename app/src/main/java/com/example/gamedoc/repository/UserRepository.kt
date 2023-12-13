@@ -6,10 +6,12 @@ import com.example.gamedoc.model.user.LoginBodyRes
 import com.example.gamedoc.network.user.UserApiService
 import retrofit2.HttpException
 import retrofit2.awaitResponse
-private lateinit var settingsDataStore: SettingsDataStore
 
 class UserRepository(private val userApiService: UserApiService) {
-   suspend fun userLogin(
+
+//    private lateinit var settingsDataStore = SettingsDataStore(context = context)
+
+    suspend fun userLogin(
             email: String,
             password: String
         ): LoginBodyRes {
@@ -18,7 +20,7 @@ class UserRepository(private val userApiService: UserApiService) {
        when(response.code()){
            200 -> {
                val responseData = response.body()!!
-               settingsDataStore.saveTokenToPreferencesStore(responseData.token,)
+//               settingsDataStore.saveTokenToPreferencesStore(responseData.token,)
                return LoginBodyRes(responseData.id, responseData.role, responseData.token)
            }
            404 -> {
