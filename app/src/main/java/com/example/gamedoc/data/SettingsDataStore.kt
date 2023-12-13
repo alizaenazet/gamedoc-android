@@ -7,36 +7,32 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import java.io.IOException
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+
+import java.io.IOException
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
-
+private const val AUTH_PREFERENCE_NAME = "auth_preference"
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+    name = AUTH_PREFERENCE_NAME
+)
 class SettingsDataStore(
-    private val preferenceDataStore: DataStore<Preferences>
+    context: Context
     ) {
-
-    private val AUTH_TOKEN = stringPreferencesKey("authToken")
-
-    suspend fun getTokenFromPreferencesStore(): String {
-        val preference = preferenceDataStore.data
-            .catch {
-                if (it is IOException) {
-                    it.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw it
-                }
-            }
-            .first()
-        return preference[AUTH_TOKEN] ?: ""
+    private val dataStore = context.dataStore
+    companion object {
+        private val AUTH_TOKEN = stringPreferencesKey("authToken")
     }
 
     suspend fun saveTokenToPreferencesStore(token:String){
-        preferenceDataStore.edit { preferences ->
+        dataStore.edit { preferences ->
             preferences[AUTH_TOKEN] = token
         }
+    }
+
+    val getToken : Flow<String> = dataStore.data.map { preferences ->
+        preferences[AUTH_TOKEN] ?: "";
     }
 }
