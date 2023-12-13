@@ -8,6 +8,10 @@ android {
     namespace = "com.example.gamedoc"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.example.gamedoc"
         minSdk = 24
@@ -22,6 +26,14 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField("String","BASE_URL","\"https://84d8c3a5-117b-49d8-a01f-6627c2f80d9f.mock.pstmn.io\"")
+        }
+
+
+        getByName("release"){
+            buildConfigField("String","BASE_URL","\"https://84d8c3a5-117b-49d8-a01f-6627c2f80d9f.mock.pstmn.io\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -83,4 +95,8 @@ dependencies {
 
     //  google icons library
     implementation("androidx.compose.material:material-icons-extended")
+
+    // data store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 }
