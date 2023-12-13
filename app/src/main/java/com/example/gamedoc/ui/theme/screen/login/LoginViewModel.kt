@@ -10,7 +10,6 @@ import com.example.gamedoc.model.user.LoginBodyRes
 import com.example.gamedoc.network.user.UserContainer
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import java.io.IOException
 
 sealed interface LoginUiState{
     data class Success (
@@ -23,7 +22,6 @@ sealed interface LoginUiState{
 }
 
 class LoginViewModel(): ViewModel() {
-    private lateinit var login: LoginBodyRes;
     var _loginUiState : LoginUiState by mutableStateOf(LoginUiState.Loading);
     init {
         login()
@@ -38,6 +36,7 @@ class LoginViewModel(): ViewModel() {
             try {
                 val loginData = UserContainer().userRepository.userLogin("","")
                 _loginUiState = LoginUiState.Success(loginData);
+
             }catch (e: Throwable){
                 println(e.message)
                 _loginUiState = LoginUiState.Error(InvalidMessgRes(e.message!!))

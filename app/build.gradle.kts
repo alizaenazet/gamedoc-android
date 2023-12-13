@@ -95,4 +95,8 @@ dependencies {
 
     //  google icons library
     implementation("androidx.compose.material:material-icons-extended")
+
+    // data store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 }
