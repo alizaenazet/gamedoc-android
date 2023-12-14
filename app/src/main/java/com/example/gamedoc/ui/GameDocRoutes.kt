@@ -38,23 +38,26 @@ enum class ListScreens(){
 
 }
 
-@SuppressLint("CoroutineCreationDuringComposition")
+@SuppressLint("CoroutineCreationDuringComposition", "FlowOperatorInvokedInComposition")
 @OptIn(ExperimentalMaterial3Api::class, DelicateCoroutinesApi::class)
 @Composable
 fun GameDocApp(){
     val navController = rememberNavController()
     val dataStore = SettingsDataStore(LocalContext.current)
     var startDestination = ListScreens.Login
+    var isAuthenticated = false
+    val setIsAuthenticated : (status: Boolean) -> Unit = { isAuthenticated = it }
 
 //    Penyesuaian Screen awal saat login
     GlobalScope.launch {
-        if (dataStore.getToken.first().isNotEmpty()){
-            startDestination = if (dataStore.getUserRole.first() == "Doctor"){
-                ListScreens.DoctorGroupChat
-            }else {
-                ListScreens.GamerGroupChat
+            if (dataStore.getToken.first().isNotEmpty()){
+                setIsAuthenticated(true)
+                startDestination = if (dataStore.getUserRole.first() == "Doctor"){
+                    ListScreens.DoctorGroupChat
+                }else {
+                    ListScreens.GamerGroupChat
+                }
             }
-        }
     }
 
 
@@ -63,7 +66,9 @@ fun GameDocApp(){
         NavHost(
             navController = navController,
             startDestination = startDestination.name,
-            modifier = Modifier.padding(innerPadding).fillMaxSize()
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ){
 //            List Screen yang akan digunakan pada route
             composable(ListScreens.Login.name){
@@ -71,11 +76,15 @@ fun GameDocApp(){
             }
             
             composable(ListScreens.DoctorGroupChat.name){
-                Logined("Doctor", navController)
+                authCheck(dataStore,setIsAuthenticated)
+                if (isAuthenticated) Logined("Doctor", navController)
+                else navController.navigate(ListScreens.Login.name)
             }
             
             composable(ListScreens.GamerGroupChat.name){
-                Logined(userRole = "Gamer", navController)
+                authCheck(dataStore,setIsAuthenticated)
+                if (isAuthenticated) Logined(userRole = "Gamer", navController)
+                else navController.navigate(ListScreens.Login.name)
             }
         }
     }
@@ -105,5 +114,17 @@ fun Logined(userRole: String, navController: NavController){
         }) {
             Text(text = "Move to $toOtherScreen Screen" )
         }
+
     }
 }
+
+@OptIn(DelicateCoroutinesApi::class)
+fun authCheck( dataStore: SettingsDataStore, setAuthStatus: (status:Boolean) -> Unit){
+    GlobalScope.launch {
+            if (dataStore.getToken.first().isNotEmpty()){
+                setAuthStatus(true)
+            }else {
+                setAuthStatus(false)
+            }
+        }
+    }
