@@ -1,4 +1,4 @@
-package com.example.gamedoc.ui.theme.screen.login
+package com.example.gamedoc.ui.screen.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cached
 import androidx.compose.material.icons.filled.ErrorOutline

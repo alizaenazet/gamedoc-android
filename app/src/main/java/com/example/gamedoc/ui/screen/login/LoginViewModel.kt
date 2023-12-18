@@ -1,4 +1,4 @@
-package com.example.gamedoc.ui.theme.screen.login
+package com.example.gamedoc.ui.screen.login
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
