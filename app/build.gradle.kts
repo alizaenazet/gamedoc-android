@@ -101,4 +101,7 @@ dependencies {
 
     // Jepatck Navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
+
+    //coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }

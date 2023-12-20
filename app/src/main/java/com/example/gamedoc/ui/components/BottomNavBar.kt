@@ -39,7 +39,6 @@ import com.example.gamedoc.ui.theme.Secondary
 import com.example.gamedoc.ui.theme.poppins
 
 class BottomNavBar {
-    val iconsTest = R.drawable.clinical_notes;
     companion object {
         @Composable
         public fun UserDefault(
