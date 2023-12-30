@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AlternateEmail
+import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -167,7 +169,7 @@ class InputField {
                         fontSize = 16.sp
                     ),
                     info = TextBasicInfo(
-                        "Password",
+                        "",
                         color = Color.Black,
                         textAlign = TextAlign.Start,
                         fontFamily = FontFamily(Font(R.font.poppins_regular)),
@@ -216,7 +218,6 @@ class InputField {
             }
         }
 
-        @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         public fun Variant5(
             input: String,
@@ -230,61 +231,72 @@ class InputField {
             fieldName: String,
             info: String
         ) {
-//            var input by rememberSaveable { mutableStateOf("") }
-//
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(vertical = 5.dp, horizontal = 24.dp),
-//                verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                TextField(
-//                    value = input,
-//                    onValueChange = {
-//                        input = it
-//                        onInput(it)
-//                    },
-//                    label = { Text(text = "Phone Number") },
-//                    leadingIcon = {
-//                        Icon(
-//                            imageVector = Icons.Outlined.Phone,
-//                            contentDescription = "Phone Icon",
-//                            tint = Secondary
-//                        )
-//                    },
-//                    supportingText = {
-//                        if (input.isEmpty()) {
-//                            Text(
-//                                text = "Please fill with the right input",
-//                                color = Color.Red,
-//                                fontFamily = FontFamily(Font(R.font.poppins_medium)),
-//                                modifier = Modifier
-//                                    .padding(start = 4.dp, top = 4.dp, bottom = 4.dp)
-//                                    .background(color = Color.White)
-//                            )
-//                        }
-//                    },
-//                    modifier = Modifier
-//                        .border(
-//                            width = 2.dp,
-//                            brush = Brush.horizontalGradient(
-//                                colorStops = arrayOf(
-//                                    0.0f to Accent,
-//                                    0.3f to Secondary
-//                                )
-//                            ),
-//                            shape = RoundedCornerShape(16.dp)
-//                        )
-//                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-//                        .fillMaxWidth(),
-//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone),
-//                    colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
-//                )
-//            }
+            var isAllValid by rememberSaveable { mutableStateOf<Boolean>(false) }
+            val setIsAllValid: (condition: Boolean) -> Unit = { isAllValid = it }
+            var invalidFeedBack = "invalid input";
+            val setInvalidFeedBack: (value: String) -> Unit = { invalidFeedBack = it }
+            isValidationFun(input, setInvalidFeedBack, setIsAllValid)
+
+            fun inputChanges(fieldInput: String): Boolean {
+                if (fieldInput.isEmpty() || !isAllValid) {
+                    onInputChange(defaultInput)
+                    return false
+                }
+                onInputChange(fieldInput)
+                return true
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 5.dp, horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CustomTextFieldValidation(
+                    name = TextBasicInfo(
+                        "Phone Number",
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 16.sp
+                    ),
+                    info = TextBasicInfo(
+                        "",
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 16.sp
+                    ),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Phone,
+                            contentDescription = "Phone Icon",
+                            tint = Secondary
+                        )
+                    },
+                    state = input,
+                    onChange = { inputChanges(it) },
+                    invalidFeedBack = invalidFeedBack,
+                    shapeRoundedSize = 16.dp,
+                    borderColor = Color.Transparent,
+                    modifier = Modifier
+                        .border(
+                            width = 3.dp,
+                            brush = Brush.horizontalGradient(
+                                colorStops = arrayOf(
+                                    0.0f to Accent,
+                                    0.3f to Secondary
+                                )
+                            ),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
+                        .fillMaxWidth(),
+                )
+            }
         }
 
-        @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         public fun Variant6(
             input: String,
@@ -298,60 +310,72 @@ class InputField {
             fieldName: String,
             info: String
         ) {
-//            var input by rememberSaveable { mutableStateOf("") }
-//
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(vertical = 5.dp, horizontal = 24.dp),
-//                verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                TextField(
-//                    value = input,
-//                    onValueChange = {
-//                        input = it
-//                        onInput(it)
-//                    },
-//                    label = { Text(text = "Date") },
-//                    leadingIcon = {
-//                        Icon(
-//                            imageVector = Icons.Outlined.CalendarMonth,
-//                            contentDescription = "Calendar Icon",
-//                            tint = Secondary
-//                        )
-//                    },
-//                    supportingText = {
-//                        if (input.isEmpty()) {
-//                            Text(
-//                                text = "Please fill with the right input",
-//                                color = Color.Red,
-//                                fontFamily = FontFamily(Font(R.font.poppins_medium)),
-//                                modifier = Modifier
-//                                    .padding(start = 4.dp, top = 4.dp, bottom = 4.dp)
-//                                    .background(color = Color.White)
-//                            )
-//                        }
-//                    },
-//                    modifier = Modifier
-//                        .border(
-//                            width = 2.dp,
-//                            brush = Brush.horizontalGradient(
-//                                colorStops = arrayOf(
-//                                    0.0f to Accent,
-//                                    0.3f to Secondary
-//                                )
-//                            ),
-//                            shape = RoundedCornerShape(16.dp)
-//                        )
-//                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-//                        .fillMaxWidth(),
-//                    colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
-//                )
-//            }
+            var isAllValid by rememberSaveable { mutableStateOf<Boolean>(false) }
+            val setIsAllValid: (condition: Boolean) -> Unit = { isAllValid = it }
+            var invalidFeedBack = "invalid input";
+            val setInvalidFeedBack: (value: String) -> Unit = { invalidFeedBack = it }
+            isValidationFun(input, setInvalidFeedBack, setIsAllValid)
+
+            fun inputChanges(fieldInput: String): Boolean {
+                if (fieldInput.isEmpty() || !isAllValid) {
+                    onInputChange(defaultInput)
+                    return false
+                }
+                onInputChange(fieldInput)
+                return true
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 5.dp, horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CustomTextFieldValidation(
+                    name = TextBasicInfo(
+                        "Date",
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 16.sp
+                    ),
+                    info = TextBasicInfo(
+                        "",
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 16.sp
+                    ),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.CalendarMonth,
+                            contentDescription = "Calendar Icon",
+                            tint = Secondary
+                        )
+                    },
+                    state = input,
+                    onChange = { inputChanges(it) },
+                    invalidFeedBack = invalidFeedBack,
+                    shapeRoundedSize = 16.dp,
+                    borderColor = Color.Transparent,
+                    modifier = Modifier
+                        .border(
+                            width = 3.dp,
+                            brush = Brush.horizontalGradient(
+                                colorStops = arrayOf(
+                                    0.0f to Accent,
+                                    0.3f to Secondary
+                                )
+                            ),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
+                        .fillMaxWidth(),
+                )
+            }
         }
 
-        @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         public fun Variant7(
             input: String,
@@ -365,61 +389,72 @@ class InputField {
             fieldName: String,
             info: String
         ) {
-//            var input by rememberSaveable { mutableStateOf("") }
-//
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(vertical = 5.dp, horizontal = 24.dp),
-//                verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                TextField(
-//                    value = input,
-//                    onValueChange = {
-//                        input = it
-//                        onInput(it)
-//                    },
-//                    label = { Text(text = "Email") },
-//                    leadingIcon = {
-//                        Icon(
-//                            imageVector = Icons.Outlined.AlternateEmail,
-//                            contentDescription = "Email Icon",
-//                            tint = Secondary
-//                        )
-//                    },
-//                    supportingText = {
-//                        if (input.isEmpty()) {
-//                            Text(
-//                                text = "Please fill with the right input",
-//                                color = Color.Red,
-//                                fontFamily = FontFamily(Font(R.font.poppins_medium)),
-//                                modifier = Modifier
-//                                    .padding(start = 4.dp, top = 4.dp, bottom = 4.dp)
-//                                    .background(color = Color.White)
-//                            )
-//                        }
-//                    },
-//                    modifier = Modifier
-//                        .border(
-//                            width = 2.dp,
-//                            brush = Brush.horizontalGradient(
-//                                colorStops = arrayOf(
-//                                    0.0f to Accent,
-//                                    0.3f to Secondary
-//                                )
-//                            ),
-//                            shape = RoundedCornerShape(16.dp)
-//                        )
-//                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-//                        .fillMaxWidth(),
-//                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-//                    colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
-//                )
-//            }
+            var isAllValid by rememberSaveable { mutableStateOf<Boolean>(false) }
+            val setIsAllValid: (condition: Boolean) -> Unit = { isAllValid = it }
+            var invalidFeedBack = "invalid input";
+            val setInvalidFeedBack: (value: String) -> Unit = { invalidFeedBack = it }
+            isValidationFun(input, setInvalidFeedBack, setIsAllValid)
+
+            fun inputChanges(fieldInput: String): Boolean {
+                if (fieldInput.isEmpty() || !isAllValid) {
+                    onInputChange(defaultInput)
+                    return false
+                }
+                onInputChange(fieldInput)
+                return true
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 5.dp, horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CustomTextFieldValidation(
+                    name = TextBasicInfo(
+                        "Email",
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 16.sp
+                    ),
+                    info = TextBasicInfo(
+                        "",
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 16.sp
+                    ),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.AlternateEmail,
+                            contentDescription = "Email Icon",
+                            tint = Secondary
+                        )
+                    },
+                    state = input,
+                    onChange = { inputChanges(it) },
+                    invalidFeedBack = invalidFeedBack,
+                    shapeRoundedSize = 16.dp,
+                    borderColor = Color.Transparent,
+                    modifier = Modifier
+                        .border(
+                            width = 3.dp,
+                            brush = Brush.horizontalGradient(
+                                colorStops = arrayOf(
+                                    0.0f to Accent,
+                                    0.3f to Secondary
+                                )
+                            ),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
+                        .fillMaxWidth(),
+                )
+            }
         }
 
-        @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         public fun Variant8(
             input: String,
@@ -433,50 +468,63 @@ class InputField {
             fieldName: String,
             info: String
         ) {
-//            var input by rememberSaveable { mutableStateOf("") }
-//
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(vertical = 5.dp, horizontal = 24.dp),
-//                verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                TextField(
-//                    value = input,
-//                    onValueChange = {
-//                        input = it
-//                        onInput(it)
-//                    },
-//                    label = { Text(text = "Input") },
-//                    supportingText = {
-//                        if (input.isEmpty()) {
-//                            Text(
-//                                text = "Please fill with the right input",
-//                                color = Color.Red,
-//                                fontFamily = FontFamily(Font(R.font.poppins_medium)),
-//                                modifier = Modifier
-//                                    .padding(start = 4.dp, top = 4.dp, bottom = 4.dp)
-//                                    .background(color = Color.White)
-//                            )
-//                        }
-//                    },
-//                    modifier = Modifier
-//                        .border(
-//                            width = 2.dp,
-//                            brush = Brush.horizontalGradient(
-//                                colorStops = arrayOf(
-//                                    0.0f to Accent,
-//                                    0.3f to Secondary
-//                                )
-//                            ),
-//                            shape = RoundedCornerShape(16.dp)
-//                        )
-//                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-//                        .fillMaxWidth(),
-//                    colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
-//                )
-//            }
+            var isAllValid by rememberSaveable { mutableStateOf<Boolean>(false) }
+            val setIsAllValid: (condition: Boolean) -> Unit = { isAllValid = it }
+            var invalidFeedBack = "invalid input";
+            val setInvalidFeedBack: (value: String) -> Unit = { invalidFeedBack = it }
+            isValidationFun(input, setInvalidFeedBack, setIsAllValid)
+
+            fun inputChanges(fieldInput: String): Boolean {
+                if (fieldInput.isEmpty() || !isAllValid) {
+                    onInputChange(defaultInput)
+                    return false
+                }
+                onInputChange(fieldInput)
+                return true
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 5.dp, horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CustomTextFieldValidation(
+                    name = TextBasicInfo(
+                        "Input",
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 16.sp
+                    ),
+                    info = TextBasicInfo(
+                        "",
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 16.sp
+                    ),
+                    state = input,
+                    onChange = { inputChanges(it) },
+                    invalidFeedBack = invalidFeedBack,
+                    shapeRoundedSize = 16.dp,
+                    borderColor = Color.Transparent,
+                    modifier = Modifier
+                        .border(
+                            width = 3.dp,
+                            brush = Brush.horizontalGradient(
+                                colorStops = arrayOf(
+                                    0.0f to Accent,
+                                    0.3f to Secondary
+                                )
+                            ),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
+                        .fillMaxWidth(),
+                )
+            }
         }
     }
 }
@@ -491,9 +539,9 @@ public fun ComponentPreview() {
     ) {
 
         var userTestInput by mutableStateOf("")
-//        fun userOnChangeInputTest (input :String){
-//            userTestInput = input
-//        }
+        fun userOnChangeInputTest(input: String) {
+            userTestInput = input
+        }
 
         fun validationTest(
             input: String,
@@ -509,7 +557,62 @@ public fun ComponentPreview() {
 
         InputField.Login(
             input = userTestInput,
-            onInputChange = { userTestInput = it },
+            onInputChange = { userOnChangeInputTest(it) },
+            defaultInput = "",
+            isValidationFun = { input, validationFun, validationFedbFun ->
+                validationTest(input, validationFun, validationFedbFun)
+            },
+            info = "info text",
+            fieldName = "fieldname"
+        )
+
+        InputField.Password(
+            input = userTestInput,
+            onInputChange = { userOnChangeInputTest(it) },
+            defaultInput = "",
+            isValidationFun = { input, validationFun, validationFedbFun ->
+                validationTest(input, validationFun, validationFedbFun)
+            },
+            info = "info text",
+            fieldName = "fieldname"
+        )
+
+        InputField.Variant5(
+            input = userTestInput,
+            onInputChange = { userOnChangeInputTest(it) },
+            defaultInput = "",
+            isValidationFun = { input, validationFun, validationFedbFun ->
+                validationTest(input, validationFun, validationFedbFun)
+            },
+            info = "info text",
+            fieldName = "fieldname"
+        )
+
+        InputField.Variant6(
+            input = userTestInput,
+            onInputChange = { userOnChangeInputTest(it) },
+            defaultInput = "",
+            isValidationFun = { input, validationFun, validationFedbFun ->
+                validationTest(input, validationFun, validationFedbFun)
+            },
+            info = "info text",
+            fieldName = "fieldname"
+        )
+
+        InputField.Variant7(
+            input = userTestInput,
+            onInputChange = { userOnChangeInputTest(it) },
+            defaultInput = "",
+            isValidationFun = { input, validationFun, validationFedbFun ->
+                validationTest(input, validationFun, validationFedbFun)
+            },
+            info = "info text",
+            fieldName = "fieldname"
+        )
+
+        InputField.Variant8(
+            input = userTestInput,
+            onInputChange = { userOnChangeInputTest(it) },
             defaultInput = "",
             isValidationFun = { input, validationFun, validationFedbFun ->
                 validationTest(input, validationFun, validationFedbFun)
