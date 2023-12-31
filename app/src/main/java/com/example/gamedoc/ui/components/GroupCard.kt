@@ -82,7 +82,8 @@ class GroupCard {
                         fontSize = 20.sp,
                         color = Secondary,
                         textAlign = TextAlign.Start,
-                        fontFamily = FontFamily(Font(R.font.poppins_bold))),
+                        fontFamily = FontFamily(Font(R.font.poppins_bold))
+                    ),
                         modifier = Modifier.padding(bottom = 0.dp)
                     )
                     Text(text = groupDesc,style = TextStyle(
