@@ -538,7 +538,7 @@ public fun ComponentPreview() {
         verticalArrangement = Arrangement.SpaceAround
     ) {
 
-        var userTestInput by mutableStateOf("")
+        var userTestInput by rememberSaveable { mutableStateOf("") }
         fun userOnChangeInputTest(input: String) {
             userTestInput = input
         }

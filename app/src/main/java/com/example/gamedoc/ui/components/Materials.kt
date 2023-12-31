@@ -98,8 +98,8 @@ fun CustomTextFieldValidation(
             shape = RoundedCornerShape(shapeRoundedSize),
             visualTransformation = visualTransformation,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = borderColor,
-                unfocusedBorderColor = borderColor,
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent,
             ),
             isError = !isValid,
             modifier = modifier
