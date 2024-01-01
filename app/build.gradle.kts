@@ -65,6 +65,9 @@ android {
 dependencies {
     val squareupVersion = "2.9.0"
     val lifecyleVersion = "2.6.2"
+
+    implementation("io.coil-kt:coil-compose:1.4.0") // Sesuaikan dengan versi terbaru yang tersedia
+
     implementation("androidx.compose.material3:material3:1.1.2")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
