@@ -40,6 +40,7 @@ import com.example.gamedoc.ui.theme.Secondary
 import com.example.gamedoc.ui.theme.Success
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
+import androidx.compose.runtime.CompositionLocalProvider
 
 class Button {
     companion object {
@@ -213,14 +214,14 @@ class Button {
             colors: List<Color> = listOf(Secondary, Success)
         ) {
             var expanded by remember { mutableStateOf(false) }
-
+            var selectedItem by remember { mutableStateOf(items.firstOrNull()) }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Original Button code
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { expanded = true },
                     modifier = Modifier
                         .width(300.dp)
                         .clip(shape = RoundedCornerShape(10.dp))
@@ -261,53 +262,59 @@ class Button {
                 ) {
                     items.forEach { item ->
                         DropdownMenuItem(
-                            onClick = { expanded = false & onItemSelected(item) }
+                            onClick = {
+                                expanded = false
+                                selectedItem = item
+                                onItemSelected(item)
+                            }
                         ) {
-                              Text(text = item)
-                        }
+                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
+                                Text(text = item)
+                            }
+                        } 
                     }
                 }
             }
         }
-    }
 
 
-    @SuppressLint("UnrememberedMutableState")
-    @Preview(showBackground = true, showSystemUi = true)
-    @Composable
-    public fun ComponentPreview() {
-        val items = listOf ("Option 1", "Option 2", "Option 3")
-        var selectedItem by remember { mutableStateOf(items[0]) }
-        Column(
-            Modifier.fillMaxHeight(1f),
-            verticalArrangement = Arrangement.SpaceAround
+        @SuppressLint("UnrememberedMutableState")
+        @Preview(showBackground = true, showSystemUi = true)
+        @Composable
+        public fun ComponentPreview() {
+            val items = listOf("Option 1", "Option 2", "Option 3")
+            var selectedItem by remember { mutableStateOf<String?>(null) }
+            Column(
+                Modifier.fillMaxHeight(1f),
+                verticalArrangement = Arrangement.SpaceAround
 
-        ) {
-            Button.Default(
-                buttonName = "Button",
-                onButtonClick = {}
-            )
-            Button.Kotak(
-                buttonName = "Button",
-                onButtonClick = {}
-            )
-            Button.PutihBunder(
-                buttonName = "Button",
-                onButtonClick = {}
-            )
-            Button.PutihKotak(
-                buttonName = "Button",
-                onButtonClick = {}
-            )
-            Button.Dropdown(
-                buttonName = "Dropdown Button",
-                onButtonClick = {},
-                onItemSelected = { selectedItem = it },
-                items = items,
-                selectedValue = selectedItem
-            )
+            ) {
+                Button.Default(
+                    buttonName = "Button",
+                    onButtonClick = {}
+                )
+                Button.Kotak(
+                    buttonName = "Button",
+                    onButtonClick = {}
+                )
+                Button.PutihBunder(
+                    buttonName = "Button",
+                    onButtonClick = {}
+                )
+                Button.PutihKotak(
+                    buttonName = "Button",
+                    onButtonClick = {}
+                )
+                Button.Dropdown(
+                    buttonName = "Dropdown Button",
+                    onButtonClick = {},
+//                    onItemSelected = { selectedItem = it },
+                    items = items,
+//                    selectedValue = selectedItem
+                            selectedItem = it
+                )
 
+            }
         }
-    }
-}
+    }}
 
