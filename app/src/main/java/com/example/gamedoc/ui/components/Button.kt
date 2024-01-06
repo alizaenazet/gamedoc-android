@@ -243,6 +243,8 @@ class Button {
             ) {
                 Row (
                     verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.defaultMinSize(minWidth = 130.dp)
                 ){
                     Text(text = if (currentSelectedIndex >= 0) {
                             options[currentSelectedIndex]
@@ -250,7 +252,8 @@ class Button {
                             text
                     },
                         color = Secondary,
-                        fontFamily = FontFamily(Font(R.font.poppins_medium)))
+                        fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                        modifier = Modifier.padding(start = 3.dp))
                     Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "dropdown icon", tint = Secondary)
                 }
                 DropdownMenu(
@@ -294,22 +297,22 @@ public fun ButtonComponentPreview() {
         verticalArrangement = Arrangement.SpaceBetween,
 
     ) {
-//        Button.Default(
-//            buttonName = "Button",
-//            onButtonClick = {}
-//        )
-//        Button.Kotak(
-//            buttonName = "Button",
-//            onButtonClick = {}
-//        )
-//        Button.PutihBunder(
-//            buttonName = "Button",
-//            onButtonClick = {}
-//        )
-//        Button.PutihKotak(
-//            buttonName = "Button",
-//            onButtonClick = {}
-//        )
+        Button.Default(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Button.Kotak(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Button.PutihBunder(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Button.PutihKotak(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
                 Text(text = selectedItem)
                 Button.Dropdown(
                     options = items,
