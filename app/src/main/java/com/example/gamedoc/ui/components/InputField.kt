@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -106,6 +107,7 @@ class InputField {
                     invalidFeedBack = invalidFeedBack,
                     shapeRoundedSize = 16.dp,
                     borderColor = Color.Transparent,
+                    backgroundColor = Color.White,
                     modifier = Modifier
                         .border(
                             width = 3.dp,
@@ -117,8 +119,9 @@ class InputField {
                             ),
                             shape = RoundedCornerShape(16.dp)
                         )
-                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(bottom = 2.dp)
+                        .align(Alignment.Top),
                 )
             }
         }
@@ -200,7 +203,7 @@ class InputField {
                     },
                     invalidFeedBack = invalidFeedBack,
                     shapeRoundedSize = 16.dp,
-                    borderColor = Color.Transparent,
+                    backgroundColor = Color.White,
                     modifier = Modifier
                         .border(
                             width = 3.dp,
@@ -212,8 +215,9 @@ class InputField {
                             ),
                             shape = RoundedCornerShape(16.dp)
                         )
-                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(bottom = 2.dp)
+                        .align(Alignment.Top),
                 )
             }
         }
@@ -279,7 +283,7 @@ class InputField {
                     onChange = { inputChanges(it) },
                     invalidFeedBack = invalidFeedBack,
                     shapeRoundedSize = 16.dp,
-                    borderColor = Color.Transparent,
+                    backgroundColor = Color.White,
                     modifier = Modifier
                         .border(
                             width = 3.dp,
@@ -291,8 +295,9 @@ class InputField {
                             ),
                             shape = RoundedCornerShape(16.dp)
                         )
-                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(bottom = 2.dp)
+                        .align(Alignment.Top),
                 )
             }
         }
@@ -358,7 +363,7 @@ class InputField {
                     onChange = { inputChanges(it) },
                     invalidFeedBack = invalidFeedBack,
                     shapeRoundedSize = 16.dp,
-                    borderColor = Color.Transparent,
+                    backgroundColor = Color.White,
                     modifier = Modifier
                         .border(
                             width = 3.dp,
@@ -370,8 +375,9 @@ class InputField {
                             ),
                             shape = RoundedCornerShape(16.dp)
                         )
-                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(bottom = 2.dp)
+                        .align(Alignment.Top),
                 )
             }
         }
@@ -437,7 +443,7 @@ class InputField {
                     onChange = { inputChanges(it) },
                     invalidFeedBack = invalidFeedBack,
                     shapeRoundedSize = 16.dp,
-                    borderColor = Color.Transparent,
+                    backgroundColor = Color.White,
                     modifier = Modifier
                         .border(
                             width = 3.dp,
@@ -449,8 +455,9 @@ class InputField {
                             ),
                             shape = RoundedCornerShape(16.dp)
                         )
-                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(bottom = 2.dp)
+                        .align(Alignment.Top),
                 )
             }
         }
@@ -509,7 +516,7 @@ class InputField {
                     onChange = { inputChanges(it) },
                     invalidFeedBack = invalidFeedBack,
                     shapeRoundedSize = 16.dp,
-                    borderColor = Color.Transparent,
+                    backgroundColor = Color.White,
                     modifier = Modifier
                         .border(
                             width = 3.dp,
@@ -521,8 +528,9 @@ class InputField {
                             ),
                             shape = RoundedCornerShape(16.dp)
                         )
-                        .background(color = Primary, shape = RoundedCornerShape(16.dp))
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(bottom = 2.dp)
+                        .align(Alignment.Top),
                 )
             }
         }
@@ -532,13 +540,15 @@ class InputField {
 @SuppressLint("UnrememberedMutableState")
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-public fun ComponentPreview() {
+public fun ComponentInputFieldPreview() {
     Column(
-        Modifier.fillMaxHeight(1f),
+        Modifier
+            .background(Color.White)
+            .fillMaxHeight(1f),
         verticalArrangement = Arrangement.SpaceAround
     ) {
 
-        var userTestInput by mutableStateOf("")
+        var userTestInput by rememberSaveable { mutableStateOf("") }
         fun userOnChangeInputTest(input: String) {
             userTestInput = input
         }

@@ -3,11 +3,15 @@ package com.example.gamedoc.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +31,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gamedoc.R
+import com.example.gamedoc.ui.theme.Error
 
 class TextBasicInfo(
         val value: String,
@@ -39,13 +44,7 @@ class TextBasicInfo(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTextFieldValidation(
-    name: TextBasicInfo = TextBasicInfo(
-        "tes",
-        color = Color.Red,
-        textAlign = TextAlign.Start,
-        fontFamily = FontFamily(Font(R.font.poppins_medium)),
-        fontSize = 10.sp
-    ),
+    name: TextBasicInfo,
     info: TextBasicInfo,
     state: String,
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -55,17 +54,19 @@ fun CustomTextFieldValidation(
     invalidFeedBack: String = "Invalid input",
     modifier: Modifier = Modifier,
     borderColor: Color = Color.Gray,
+    backgroundColor: Color,
     shapeRoundedSize: Dp = 12.dp,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
-
     var textInput by remember { mutableStateOf("") }
-    var isValid by remember { mutableStateOf(false) }
+    var isValid by remember { mutableStateOf(true) }
     Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(5.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp),
+        verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
-        OutlinedTextField(
+        TextField(
             value = state,
             label = {
                 Text(
@@ -97,12 +98,17 @@ fun CustomTextFieldValidation(
             trailingIcon = { trailingIcon?.invoke() },
             shape = RoundedCornerShape(shapeRoundedSize),
             visualTransformation = visualTransformation,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = borderColor,
-                unfocusedBorderColor = borderColor,
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedContainerColor = backgroundColor,
+                focusedContainerColor = backgroundColor,
+                unfocusedBorderColor = Color.Transparent,
+                errorBorderColor = Error,
+                errorContainerColor = backgroundColor,
+                errorLabelColor = Color.Transparent,
+                focusedBorderColor = Color.Transparent,
             ),
             isError = !isValid,
-            modifier = modifier
+            modifier = modifier,
         )
         if (!isValid){
             Text(text = invalidFeedBack)
