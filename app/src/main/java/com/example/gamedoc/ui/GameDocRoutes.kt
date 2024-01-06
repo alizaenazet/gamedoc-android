@@ -19,7 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gamedoc.data.SettingsDataStore
-import com.example.gamedoc.ui.screen.login.LoginScreen
+import com.example.gamedoc.ui.auth.login.LoginScreen
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first

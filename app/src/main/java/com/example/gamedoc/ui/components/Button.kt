@@ -65,7 +65,7 @@ class Button {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
                         .clip(RoundedCornerShape(50))
@@ -92,7 +92,7 @@ class Button {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
                         .clip(RoundedCornerShape(10))
@@ -119,7 +119,7 @@ class Button {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
 //                        .clip(RoundedCornerShape(50))
@@ -154,7 +154,7 @@ class Button {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
 //                        .clip(RoundedCornerShape(50))
@@ -283,43 +283,43 @@ class Button {
 
     }
 }
-
-@SuppressLint("UnrememberedMutableState")
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-public fun ButtonComponentPreview() {
-    val items = listOf("Option 1", "Option 2", "Option 3")
-    var selectedItem by remember { mutableStateOf("default") }
-    Column(
-        Modifier
-            .fillMaxSize()
-            .background(Color.Yellow),
-        verticalArrangement = Arrangement.SpaceBetween,
-
-    ) {
-        Button.Default(
-            buttonName = "Button",
-            onButtonClick = {}
-        )
-        Button.Kotak(
-            buttonName = "Button",
-            onButtonClick = {}
-        )
-        Button.PutihBunder(
-            buttonName = "Button",
-            onButtonClick = {}
-        )
-        Button.PutihKotak(
-            buttonName = "Button",
-            onButtonClick = {}
-        )
-                Text(text = selectedItem)
-                Button.Dropdown(
-                    options = items,
-                    selectedIndex = { selectedItem = items[it] },
-                    text = "Dropdown"
-                )
-
-    }
-}
+//
+//@SuppressLint("UnrememberedMutableState")
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//public fun ButtonComponentPreview() {
+//    val items = listOf("Option 1", "Option 2", "Option 3")
+//    var selectedItem by remember { mutableStateOf("default") }
+//    Column(
+//        Modifier
+//            .fillMaxSize()
+//            .background(Color.Yellow),
+//        verticalArrangement = Arrangement.SpaceBetween,
+//
+//    ) {
+//        Button.Default(
+//            buttonName = "Button",
+//            onButtonClick = {}
+//        )
+//        Button.Kotak(
+//            buttonName = "Button",
+//            onButtonClick = {}
+//        )
+//        Button.PutihBunder(
+//            buttonName = "Button",
+//            onButtonClick = {}
+//        )
+//        Button.PutihKotak(
+//            buttonName = "Button",
+//            onButtonClick = {}
+//        )
+//                Text(text = selectedItem)
+//                Button.Dropdown(
+//                    options = items,
+//                    selectedIndex = { selectedItem = items[it] },
+//                    text = "Dropdown"
+//                )
+//
+//    }
+//}
 
