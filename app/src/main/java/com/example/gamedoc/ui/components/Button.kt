@@ -122,10 +122,8 @@ class Button {
                     onClick = { onButtonClick },
                     modifier = Modifier
                         .width(300.dp)
-//                        .clip(RoundedCornerShape(50))
                         .clip(shape = RoundedCornerShape(50.dp))
                         .background(Color.White)
-//                        .color(Color.White)
                         .border(
                             BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
                             RoundedCornerShape(50.dp)
@@ -157,10 +155,8 @@ class Button {
                     onClick = { onButtonClick },
                     modifier = Modifier
                         .width(300.dp)
-//                        .clip(RoundedCornerShape(50))
                         .clip(shape = RoundedCornerShape(50.dp))
                         .background(Color.White)
-//                        .color(Color.White)
                         .border(
                             BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
                             RoundedCornerShape(50.dp)
@@ -178,53 +174,17 @@ class Button {
             }
         }
 
-        //        @Composable
-//        public fun Dropdown(
-//
-//                    buttonName: String,
-//            onButtonClick: () -> Unit,
-//            colors: List<Color> = listOf(Secondary, Success)
-//        ) {
-//            Row(
-//                horizontalArrangement = Arrangement.spacedBy(10.dp),
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Button(
-//                    onClick = { onButtonClick },
-//                    modifier = Modifier
-//                        .width(300.dp)
-////                        .clip(RoundedCornerShape(50))
-//                        .clip(shape = RoundedCornerShape(10.dp))
-//                        .background(Color.White)
-////                        .color(Color.White)
-//                        .border(
-//                            BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
-//                            RoundedCornerShape(10.dp)
-//                        ),
-//                    colors = ButtonDefaults.buttonColors(Color.White)
-//                ) {
-//                    Text(text = buttonName, fontSize = 14.sp, style = TextStyle(
-//                        fontFamily = FontFamily(Font(R.font.poppins_medium))),
-//                        color = Secondary,
-//                    )
-//                    Icon(Icons.Default.ArrowDropDown, contentDescription = "dropdown icon", tint = Secondary,
-//                        modifier = Modifier
-//                            .size(30.dp)
-//                    )
-//                }
-//            }
-//        }
         @Composable
         public fun Dropdown(
             options: List<String>,
             selectedIndex: (Int) -> Unit,
             text: String,
-            colors : List<Color> = listOf(Secondary, Success)
+            colors: List<Color> = listOf(Secondary, Success)
         ) {
             var expanded by remember { mutableStateOf(false) }
             val closeDropDown: () -> Unit = { expanded = false }
             var currentSelectedIndex by remember { mutableIntStateOf(-1) }
-            if (currentSelectedIndex >= 0){
+            if (currentSelectedIndex >= 0) {
                 selectedIndex(currentSelectedIndex);
             }
             Box(
@@ -241,20 +201,26 @@ class Button {
                     .defaultMinSize(minWidth = 190.dp)
                     .padding(vertical = 7.dp, horizontal = 35.dp)
             ) {
-                Row (
+                Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.defaultMinSize(minWidth = 130.dp)
-                ){
-                    Text(text = if (currentSelectedIndex >= 0) {
+                ) {
+                    Text(
+                        text = if (currentSelectedIndex >= 0) {
                             options[currentSelectedIndex]
-                        }else {
+                        } else {
                             text
-                    },
+                        },
                         color = Secondary,
                         fontFamily = FontFamily(Font(R.font.poppins_medium)),
-                        modifier = Modifier.padding(start = 3.dp))
-                    Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "dropdown icon", tint = Secondary)
+                        modifier = Modifier.padding(start = 3.dp)
+                    )
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowDown,
+                        contentDescription = "dropdown icon",
+                        tint = Secondary
+                    )
                 }
                 DropdownMenu(
                     expanded = expanded,
@@ -262,14 +228,14 @@ class Button {
                         closeDropDown()
                     },
                     modifier = Modifier
-                    .background(Color.White)
+                        .background(Color.White)
                 ) {
-                    for ((index,value) in options.withIndex()){
+                    for ((index, value) in options.withIndex()) {
                         DropdownMenuItem(
                             text = { Text(text = value) },
                             onClick = {
                                 currentSelectedIndex = index
-                                      },
+                            },
                             enabled = currentSelectedIndex != index
                         )
                     }
@@ -278,7 +244,6 @@ class Button {
 
 
         }
-
 
 
     }
@@ -296,7 +261,7 @@ public fun ButtonComponentPreview() {
             .background(Color.White),
         verticalArrangement = Arrangement.SpaceBetween,
 
-    ) {
+        ) {
         Button.Default(
             buttonName = "Button",
             onButtonClick = {}
@@ -313,13 +278,12 @@ public fun ButtonComponentPreview() {
             buttonName = "Button",
             onButtonClick = {}
         )
-                Text(text = selectedItem)
-                Button.Dropdown(
-                    options = items,
-                    selectedIndex = { selectedItem = items[it] },
-                    text = "Dropdown"
-                )
-
+        Text(text = selectedItem)
+        Button.Dropdown(
+            options = items,
+            selectedIndex = { selectedItem = items[it] },
+            text = "Dropdown"
+        )
     }
 }
 
