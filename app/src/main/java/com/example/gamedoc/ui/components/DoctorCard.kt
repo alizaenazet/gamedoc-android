@@ -24,6 +24,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+//import com.example.AsyncImage; // Gantilah dengan impor yang sesuai
+
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.unit.sp
 import com.example.gamedoc.R
