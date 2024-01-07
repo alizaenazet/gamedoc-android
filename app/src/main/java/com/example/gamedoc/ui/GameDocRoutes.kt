@@ -19,7 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gamedoc.data.SettingsDataStore
-import com.example.gamedoc.ui.screen.login.LoginScreen
+import com.example.gamedoc.ui.auth.login.LoginScreen
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
@@ -33,7 +33,7 @@ enum class ListScreens(){
     DoctorGroupSetting,
     DoctorGroupCreate,
     DoctorUserSetting,
-
+    Register,
     GamerGroupChat,
 
 }
@@ -52,7 +52,7 @@ fun GameDocApp(){
     GlobalScope.launch {
             if (dataStore.getToken.first().isNotEmpty()){
                 setIsAuthenticated(true)
-                startDestination = if (dataStore.getUserRole.first() == "Doctor"){
+                startDestination = if (dataStore.getUserRole.first() == "doctor"){
                     ListScreens.DoctorGroupChat
                 }else {
                     ListScreens.GamerGroupChat
@@ -72,7 +72,11 @@ fun GameDocApp(){
         ){
 //            List Screen yang akan digunakan pada route
             composable(ListScreens.Login.name){
-                LoginScreen(modifier = Modifier.fillMaxSize())
+                LoginScreen(modifier = Modifier.fillMaxSize(),
+                    navController = navController,
+                    dataStore = dataStore,
+                    setIsAuthenticated = { setIsAuthenticated(it) }
+                )
             }
             
             composable(ListScreens.DoctorGroupChat.name){
@@ -85,6 +89,10 @@ fun GameDocApp(){
                 authCheck(dataStore,setIsAuthenticated)
                 if (isAuthenticated) Logined(userRole = "Gamer", navController)
                 else navController.navigate(ListScreens.Login.name)
+            }
+
+            composable(ListScreens.Register.name){
+                    Text(text = "this is register screen")
             }
         }
     }
@@ -124,7 +132,7 @@ fun authCheck( dataStore: SettingsDataStore, setAuthStatus: (status:Boolean) -> 
             if (dataStore.getToken.first().isNotEmpty()){
                 setAuthStatus(true)
             }else {
-                setAuthStatus(false)
+                setAuthStatus(true)
             }
         }
     }

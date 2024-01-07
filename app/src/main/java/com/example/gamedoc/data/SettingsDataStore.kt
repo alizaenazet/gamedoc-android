@@ -38,8 +38,8 @@ class SettingsDataStore(
         }
     }
 
-    val getUserRole : Flow<String> = dataStore.data.map {
-        it[USER_ROLE] ?: "";
+    val getUserRole : Flow<String> = dataStore.data.map {preferences ->
+        preferences[USER_ROLE] ?: "";
     }
 
     val getToken : Flow<String> = dataStore.data.map { preferences ->

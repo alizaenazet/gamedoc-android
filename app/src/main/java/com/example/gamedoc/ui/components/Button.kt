@@ -65,7 +65,7 @@ class Button {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
                         .clip(RoundedCornerShape(50))
@@ -92,7 +92,7 @@ class Button {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
                         .clip(RoundedCornerShape(10))
@@ -119,7 +119,7 @@ class Button {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
                         .clip(shape = RoundedCornerShape(50.dp))
@@ -152,7 +152,7 @@ class Button {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { onButtonClick },
+                    onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
                         .clip(shape = RoundedCornerShape(50.dp))
