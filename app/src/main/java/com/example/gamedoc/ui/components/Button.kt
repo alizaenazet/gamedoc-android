@@ -262,7 +262,7 @@ class Button {
                         closeDropDown()
                     },
                     modifier = Modifier
-//                    .background(Color.Red)
+                    .background(Color.White)
                 ) {
                     for ((index,value) in options.withIndex()){
                         DropdownMenuItem(
@@ -293,7 +293,7 @@ public fun ButtonComponentPreview() {
     Column(
         Modifier
             .fillMaxSize()
-            .background(Color.Yellow),
+            .background(Color.White),
         verticalArrangement = Arrangement.SpaceBetween,
 
     ) {
