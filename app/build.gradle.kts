@@ -24,15 +24,16 @@ android {
             useSupportLibrary = true
         }
     }
+    val BASE_URL = "https://b68e-180-253-46-141.ngrok-free.app"
 
     buildTypes {
         debug{
-            buildConfigField("String","BASE_URL","\"https://84d8c3a5-117b-49d8-a01f-6627c2f80d9f.mock.pstmn.io\"")
+            buildConfigField("String","BASE_URL","\"$BASE_URL/api/\"")
         }
 
 
         getByName("release"){
-            buildConfigField("String","BASE_URL","\"https://84d8c3a5-117b-49d8-a01f-6627c2f80d9f.mock.pstmn.io\"")
+            buildConfigField("String","BASE_URL","\"$BASE_URL/api/\"")
         }
         release {
             isMinifyEnabled = false

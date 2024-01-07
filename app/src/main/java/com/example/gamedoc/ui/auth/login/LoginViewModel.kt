@@ -6,9 +6,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.navArgument
+import com.example.gamedoc.data.SettingsDataStore
 import com.example.gamedoc.model.InvalidMessgRes
 import com.example.gamedoc.model.user.LoginBodyRes
 import com.example.gamedoc.network.user.UserContainer
+import com.example.gamedoc.ui.ListScreens
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -37,32 +41,46 @@ class LoginViewModel(): ViewModel() {
     val errorMessage : String
         get() = _errorMessage
 
-    init {
-        login()
-    }
-
-   public fun relogin(){
-        login();
-    }
-    private fun login(){
+    private fun login(
+        navController: NavController,
+        dataStore: SettingsDataStore,
+        setIsAuthenticated: (Boolean) -> Unit
+    ){
         viewModelScope.launch {
             _loginUiState = LoginUiState.Success(false);
             try {
                 if (_isAllValid){
                     val loginData = UserContainer().userRepository.userLogin(_userEmailInput,_userPasswordInput)
                     _loginUiState = LoginUiState.Success(isSuccess = true);
+                    dataStore.saveUserRoleToPreferencesStore(loginData.role)
+                    dataStore.saveTokenToPreferencesStore(loginData.token)
+                    if (loginData.role == "gamer"){
+                        navController.navigate(ListScreens.GamerGroupChat.name)
+                    }else {
+                        navController.navigate(ListScreens.DoctorGroupChat.name)
+                    }
+                    setIsAuthenticated(true)
                 }
                 _loginUiState = LoginUiState.Success(false);
             }catch (e: Throwable){
                 _errorMessage = e.message!!
                 _loginUiState = LoginUiState.Success(isSuccess = false);
+                setIsAuthenticated(false)
             }catch (e: HttpException){
                 _errorMessage = e.message!!
                 _loginUiState = LoginUiState.Error(InvalidMessgRes(e.message()))
+                setIsAuthenticated(false)
             }
         }
     }
 
+    public fun reLogin(
+        navController: NavController,
+                       dataStore: SettingsDataStore,
+                        setIsAuthenticated: (Boolean) -> Unit
+    ){
+        login(navController,dataStore,setIsAuthenticated)
+    }
      fun onInputEmail(email:String){
         _userEmailInput = email
     }
@@ -71,8 +89,11 @@ class LoginViewModel(): ViewModel() {
         _userPasswordInput = password
     }
 
-     fun loginClick(){
-        login()
+     fun loginClick(navController: NavController,
+                    dataStore: SettingsDataStore,
+                    setIsAuthenticated: (Boolean)-> Unit
+     ){
+        login( navController, dataStore, setIsAuthenticated)
     }
 
       fun validateEmailInput(
@@ -104,7 +125,7 @@ class LoginViewModel(): ViewModel() {
         _isAllValid = true
     }
 
-    fun redirectToRegister(){
-
+    fun redirectToRegister(navController: NavController){
+        navController.navigate(ListScreens.Register.name)
     }
 }
