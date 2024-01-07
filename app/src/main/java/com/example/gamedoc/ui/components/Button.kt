@@ -9,14 +9,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
@@ -42,10 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.example.gamedoc.R
 import com.example.gamedoc.ui.theme.Secondary
 import com.example.gamedoc.ui.theme.Success
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.mutableIntStateOf
 
 class Button {
     companion object {
@@ -117,10 +115,8 @@ class Button {
                     onClick = { onButtonClick },
                     modifier = Modifier
                         .width(300.dp)
-//                        .clip(RoundedCornerShape(50))
                         .clip(shape = RoundedCornerShape(50.dp))
                         .background(Color.White)
-//                        .color(Color.White)
                         .border(
                             BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
                             RoundedCornerShape(50.dp)
@@ -152,10 +148,8 @@ class Button {
                     onClick = { onButtonClick },
                     modifier = Modifier
                         .width(300.dp)
-//                        .clip(RoundedCornerShape(50))
                         .clip(shape = RoundedCornerShape(50.dp))
                         .background(Color.White)
-//                        .color(Color.White)
                         .border(
                             BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
                             RoundedCornerShape(50.dp)
@@ -175,152 +169,107 @@ class Button {
 
         @Composable
         public fun Dropdown(
-
-            buttonName: String,
-            onButtonClick: () -> Unit,
-            colors: List<Color> = listOf(Secondary, Success)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(
-                    onClick = { onButtonClick },
-                    modifier = Modifier
-                        .width(300.dp)
-//                        .clip(RoundedCornerShape(50))
-                        .clip(shape = RoundedCornerShape(10.dp))
-                        .background(Color.White)
-//                        .color(Color.White)
-                        .border(
-                            BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
-                            RoundedCornerShape(10.dp)
-                        ),
-                    colors = ButtonDefaults.buttonColors(Color.White)
-                ) {
-                    Text(text = buttonName, fontSize = 14.sp, style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.poppins_medium))),
-                        color = Secondary,
-                    )
-                    Icon(Icons.Default.ArrowDropDown, contentDescription = "dropdown icon", tint = Secondary,
-                        modifier = Modifier
-                            .size(30.dp)
-                    )
-                }
-            }
-        }
-        @Composable
-        public fun Dropdown(
-            buttonName: String,
-            onButtonClick: () -> Unit,
-            onItemSelected: (String) -> Unit,
-            items: List<String>,
-            selectedValue: String,
+            options: List<String>,
+            selectedIndex: (Int) -> Unit,
+            text: String,
             colors: List<Color> = listOf(Secondary, Success)
         ) {
             var expanded by remember { mutableStateOf(false) }
-            var selectedItem by remember { mutableStateOf(items.firstOrNull()) }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+            val closeDropDown: () -> Unit = { expanded = false }
+            var currentSelectedIndex by remember { mutableIntStateOf(-1) }
+            if (currentSelectedIndex >= 0) {
+                selectedIndex(currentSelectedIndex);
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.TopStart)
+                    .clickable { expanded = !expanded }
+                    .background(Color.White, shape = RoundedCornerShape(size = 6.dp))
+                    .clip(shape = RoundedCornerShape(6.dp))
+                    .border(
+                        BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
+                        RoundedCornerShape(6.dp)
+                    )
+                    .defaultMinSize(minWidth = 190.dp)
+                    .padding(vertical = 7.dp, horizontal = 35.dp)
             ) {
-                // Original Button code
-                Button(
-                    onClick = { expanded = true },
-                    modifier = Modifier
-                        .width(300.dp)
-                        .clip(shape = RoundedCornerShape(10.dp))
-                        .background(Color.White)
-                        .border(
-                            BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
-                            RoundedCornerShape(10.dp)
-                        ),
-                    colors = ButtonDefaults.buttonColors(Color.White)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = buttonName,
-                        fontSize = 14.sp,
-                        style = TextStyle(
-                            fontFamily = FontFamily(Font(R.font.poppins_medium))
-                        ),
-                        color = Secondary
+                        text = if (currentSelectedIndex >= 0) {
+                            options[currentSelectedIndex]
+                        } else {
+                            text
+                        },
+                        color = Secondary,
+                        fontFamily = FontFamily(Font(R.font.poppins_medium))
                     )
                     Icon(
-                        Icons.Default.ArrowDropDown,
+                        imageVector = Icons.Default.KeyboardArrowDown,
                         contentDescription = "dropdown icon",
-                        tint = Secondary,
-                        modifier = Modifier
-                            .size(30.dp)
+                        tint = Secondary
                     )
                 }
-
-                // Dropdown
                 DropdownMenu(
                     expanded = expanded,
-                    onDismissRequest = { expanded = false },
+                    onDismissRequest = {
+                        closeDropDown()
+                    },
                     modifier = Modifier
-                        .width(300.dp)
-                        .border(
-                            BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
-                            RoundedCornerShape(10.dp)
-                        )
+                        .background(Color.White)
                 ) {
-                    items.forEach { item ->
+                    for ((index, value) in options.withIndex()) {
                         DropdownMenuItem(
+                            text = { Text(text = value) },
                             onClick = {
-                                expanded = false
-                                selectedItem = item
-                                onItemSelected(item)
-                            }
-                        ) {
-                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
-                                Text(text = item)
-                            }
-                        }
+                                currentSelectedIndex = index
+                            },
+                            enabled = currentSelectedIndex != index
+                        )
                     }
                 }
             }
         }
     }
-
-
-    @SuppressLint("UnrememberedMutableState")
-    @Preview(showBackground = true, showSystemUi = true)
-    @Composable
-    public fun ComponentPreview() {
-        val items = listOf("Option 1", "Option 2", "Option 3")
-        var selectedItem by remember { mutableStateOf<String?>(null) }
-        Column(
-            Modifier.fillMaxHeight(1f),
-            verticalArrangement = Arrangement.SpaceAround
-
-        ) {
-            Button.Default(
-                buttonName = "Button",
-                onButtonClick = {}
-            )
-            Button.Kotak(
-                buttonName = "Button",
-                onButtonClick = {}
-            )
-            Button.PutihBunder(
-                buttonName = "Button",
-                onButtonClick = {}
-            )
-            Button.PutihKotak(
-                buttonName = "Button",
-                onButtonClick = {}
-            )
-            Button.Dropdown(
-                buttonName = "Dropdown Button",
-                onButtonClick = {},
-                onItemSelected = { selectedItem = it },
-                items = items,
-                selectedValue = selectedItem
-                        selectedItem = it
-            )
-
-        }
-    }
 }
 
+
+@SuppressLint("UnrememberedMutableState")
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+public fun ComponentButtonPreview() {
+    val items = listOf("Option 1", "Option 2", "Option 3")
+    var selectedItem by remember { mutableStateOf("default") }
+    Column(
+        Modifier.fillMaxHeight(1f),
+        verticalArrangement = Arrangement.SpaceAround
+
+    ) {
+        Button.Default(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Button.Kotak(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Button.PutihBunder(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Button.PutihKotak(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Text(text = selectedItem)
+        Button.Dropdown(
+            options = items,
+            selectedIndex = { selectedItem = items[it] },
+            text = "Dropdown"
+        )
+
+    }
+
+}
