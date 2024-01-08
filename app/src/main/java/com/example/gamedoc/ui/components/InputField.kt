@@ -66,7 +66,7 @@ class InputField {
 
             fun inputChanges(fieldInput: String): Boolean {
                 if (fieldInput.isEmpty() || !isAllValid) {
-                    onInputChange(defaultInput)
+                    onInputChange(fieldInput)
                     return false
                 }
                 onInputChange(fieldInput)
@@ -149,7 +149,7 @@ class InputField {
 
             fun inputChanges(fieldInput: String): Boolean {
                 if (fieldInput.isEmpty() || !isAllValid) {
-                    onInputChange(defaultInput)
+                    onInputChange(fieldInput)
                     return false
                 }
                 onInputChange(fieldInput)
@@ -243,7 +243,7 @@ class InputField {
 
             fun inputChanges(fieldInput: String): Boolean {
                 if (fieldInput.isEmpty() || !isAllValid) {
-                    onInputChange(defaultInput)
+                    onInputChange(fieldInput)
                     return false
                 }
                 onInputChange(fieldInput)
@@ -323,7 +323,7 @@ class InputField {
 
             fun inputChanges(fieldInput: String): Boolean {
                 if (fieldInput.isEmpty() || !isAllValid) {
-                    onInputChange(defaultInput)
+                    onInputChange(fieldInput)
                     return false
                 }
                 onInputChange(fieldInput)
@@ -403,7 +403,7 @@ class InputField {
 
             fun inputChanges(fieldInput: String): Boolean {
                 if (fieldInput.isEmpty() || !isAllValid) {
-                    onInputChange(defaultInput)
+                    onInputChange(fieldInput)
                     return false
                 }
                 onInputChange(fieldInput)
@@ -483,7 +483,7 @@ class InputField {
 
             fun inputChanges(fieldInput: String): Boolean {
                 if (fieldInput.isEmpty() || !isAllValid) {
-                    onInputChange(defaultInput)
+                    onInputChange(fieldInput)
                     return false
                 }
                 onInputChange(fieldInput)
