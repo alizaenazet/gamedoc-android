@@ -12,11 +12,15 @@ import com.example.gamedoc.network.gamer.GamerContainer
 import com.example.gamedoc.ui.ListScreens
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import com.example.gamedoc.model.ResponseBody
+import org.jetbrains.annotations.Nullable
+
 
 sealed interface RegisterGamerUiState{
     data class Success(
         val isSuccess: Boolean,
-        val invalidMessage: Map<String, Array<String>>?
+        val isFailed: Boolean = false,
+        val invalidMessage: String? = null
     ): RegisterGamerUiState
     data class Error (
         val error: String,
@@ -25,7 +29,7 @@ sealed interface RegisterGamerUiState{
 }
 
 class RegisterGamerViewModel(): ViewModel() {
-    var _registerGamerUiState: RegisterGamerUiState by mutableStateOf(RegisterGamerUiState.Success(false,null));
+    var _registerGamerUiState: RegisterGamerUiState by mutableStateOf(RegisterGamerUiState.Success(false,false,null));
     private var _isAllValid by mutableStateOf(true)
 
     private var _usernameInput by mutableStateOf("",)
@@ -71,14 +75,15 @@ class RegisterGamerViewModel(): ViewModel() {
                     )
 
                     when(registerData.statusCode){
-                        200 -> {
+                        201 -> {
                             navController.navigate(ListScreens.Login.name)
                         }
 
                         422 -> {
                             RegisterGamerUiState.Success(
                                 isSuccess = false,
-                                invalidMessage = registerData.errorResponse!!)
+                                isFailed = true,
+                                invalidMessage = "invalid register account")
                         }
 
                     }
@@ -118,7 +123,7 @@ class RegisterGamerViewModel(): ViewModel() {
         validationFb: (String) -> Unit,
         validationFedbFun: (Boolean) -> Unit
     ){
-        val regEx = "([0-9]{4})[\\-](1[0-2]|0[1-9]|[1-9])[\\-](3[01]|[12][0-9]|0[1-9]|[1-9])$".toRegex()
+        val regEx = "^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})\$".toRegex()
         if (!regEx.matches(input)){
             validationFb("format DOB invalid, YYYY-MM-DD")
             validationFedbFun(false)
@@ -174,7 +179,7 @@ class RegisterGamerViewModel(): ViewModel() {
         validationFb: (String) -> Unit,
         validationFedbFun: (Boolean) -> Unit
     ){
-        if (input.length < 8){
+        if (input.length < 7){
             validationFb("password harus lebih 8 kata")
             validationFedbFun(false)
             _isAllValid = false
@@ -193,7 +198,10 @@ class RegisterGamerViewModel(): ViewModel() {
         validationFb: (String) -> Unit,
         validationFedbFun: (Boolean) -> Unit
     ){
-        if (input.length < 8){
+            validationFedbFun(true)
+            _isAllValid = true
+
+        if (input.length < 7){
             validationFb("password harus lebih 8 kata")
             validationFedbFun(false)
             _isAllValid = false
@@ -201,9 +209,6 @@ class RegisterGamerViewModel(): ViewModel() {
             validationFb("password tidak sama")
             validationFedbFun(false)
             _isAllValid = false
-        } else {
-            validationFedbFun(true)
-            _isAllValid = true
         }
     }
 

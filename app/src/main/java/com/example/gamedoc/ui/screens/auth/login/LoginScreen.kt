@@ -1,4 +1,4 @@
-package com.example.gamedoc.ui.auth.login
+package com.example.gamedoc.ui.screens.auth.login
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

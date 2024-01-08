@@ -1,16 +1,13 @@
-package com.example.gamedoc.ui.auth.login
+package com.example.gamedoc.ui.screens.auth.login
 
-import android.provider.ContactsContract.CommonDataKinds.Email
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import androidx.navigation.navArgument
 import com.example.gamedoc.data.SettingsDataStore
 import com.example.gamedoc.model.InvalidMessgRes
-import com.example.gamedoc.model.user.LoginBodyRes
 import com.example.gamedoc.network.user.UserContainer
 import com.example.gamedoc.ui.ListScreens
 import kotlinx.coroutines.launch
@@ -126,6 +123,6 @@ class LoginViewModel(): ViewModel() {
     }
 
     fun redirectToRegister(navController: NavController){
-        navController.navigate(ListScreens.Register.name)
+        navController.navigate(ListScreens.RegisterGamer.name)
     }
 }
