@@ -19,7 +19,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gamedoc.data.SettingsDataStore
-import com.example.gamedoc.ui.auth.login.LoginScreen
+import com.example.gamedoc.model.ViewRouteParams
+import com.example.gamedoc.ui.screens.auth.login.LoginScreen
+import com.example.gamedoc.ui.screens.register.gamer.GamerRegisterView
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
@@ -33,7 +35,8 @@ enum class ListScreens(){
     DoctorGroupSetting,
     DoctorGroupCreate,
     DoctorUserSetting,
-    Register,
+    RegisterGamer,
+    RegisterDoctor,
     GamerGroupChat,
 
 }
@@ -79,21 +82,37 @@ fun GameDocApp(){
                 )
             }
             
+            composable(ListScreens.RegisterGamer.name){
+                GamerRegisterView(
+                        viewRouteParams = ViewRouteParams(
+                        navController = navController,
+                        dataStore = dataStore,
+                        setIsAuthenticated = { setIsAuthenticated(it) }
+                    )
+                )
+            }
+
+            composable(ListScreens.RegisterDoctor.name){
+                GamerRegisterView(
+                    viewRouteParams = ViewRouteParams(
+                        navController,
+                        dataStore
+                    ) { setIsAuthenticated(it) }
+                )
+            }
+
             composable(ListScreens.DoctorGroupChat.name){
                 authCheck(dataStore,setIsAuthenticated)
                 if (isAuthenticated) Logined("Doctor", navController)
                 else navController.navigate(ListScreens.Login.name)
             }
-            
+
             composable(ListScreens.GamerGroupChat.name){
                 authCheck(dataStore,setIsAuthenticated)
                 if (isAuthenticated) Logined(userRole = "Gamer", navController)
                 else navController.navigate(ListScreens.Login.name)
             }
 
-            composable(ListScreens.Register.name){
-                    Text(text = "this is register screen")
-            }
         }
     }
 }
