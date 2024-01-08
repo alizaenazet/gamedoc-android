@@ -7,6 +7,6 @@ import retrofit2.Call
 
 
 interface GamerApiService {
-    @POST("doctors/register")
+    @POST("gamers/register")
     fun register(@Body registerBodyReq: GamerRegisterBodyReq): Call<Map<String,Array<String>>>
 }
