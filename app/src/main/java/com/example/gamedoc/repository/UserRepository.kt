@@ -7,7 +7,9 @@ import com.example.gamedoc.network.user.UserApiService
 import retrofit2.HttpException
 import retrofit2.awaitResponse
 
-class UserRepository(private val userApiService: UserApiService) {
+class UserRepository(
+    private val userApiService: UserApiService
+) {
 
 //    private lateinit var settingsDataStore = SettingsDataStore(context = context)
 
@@ -31,4 +33,5 @@ class UserRepository(private val userApiService: UserApiService) {
            }
        }
     }
+
 }

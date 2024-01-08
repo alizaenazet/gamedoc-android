@@ -55,7 +55,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 class Button {
     companion object {
         @Composable
-        public fun Default(
+        public fun RoundedFilled(
             buttonName: String,
             onButtonClick: () -> Unit,
             colors: List<Color> = listOf(Secondary, Success)
@@ -82,7 +82,7 @@ class Button {
         }
 
         @Composable
-        public fun Kotak(
+        public fun DefaultFilled(
             buttonName: String,
             onButtonClick: () -> Unit,
             colors: List<Color> = listOf(Secondary, Success)
@@ -109,7 +109,7 @@ class Button {
         }
 
         @Composable
-        public fun PutihBunder(
+        public fun Rounded(
             buttonName: String,
             onButtonClick: () -> Unit,
             colors: List<Color> = listOf(Secondary, Success)
@@ -142,7 +142,7 @@ class Button {
         }
 
         @Composable
-        public fun PutihKotak(
+        public fun Default(
             buttonName: String,
             onButtonClick: () -> Unit,
             colors: List<Color> = listOf(Secondary, Success)
@@ -155,11 +155,11 @@ class Button {
                     onClick = { onButtonClick() },
                     modifier = Modifier
                         .width(300.dp)
-                        .clip(shape = RoundedCornerShape(50.dp))
-                        .background(Color.White)
+                        .background(Color.White, shape = RoundedCornerShape(size = 6.dp))
+                        .clip(shape = RoundedCornerShape(6.dp))
                         .border(
                             BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
-                            RoundedCornerShape(50.dp)
+                            RoundedCornerShape(6.dp)
                         ),
                     colors = ButtonDefaults.buttonColors(Color.White)
                 ) {
@@ -262,19 +262,19 @@ public fun ButtonComponentPreview() {
         verticalArrangement = Arrangement.SpaceBetween,
 
         ) {
+        Button.RoundedFilled(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Button.DefaultFilled(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
+        Button.Rounded(
+            buttonName = "Button",
+            onButtonClick = {}
+        )
         Button.Default(
-            buttonName = "Button",
-            onButtonClick = {}
-        )
-        Button.Kotak(
-            buttonName = "Button",
-            onButtonClick = {}
-        )
-        Button.PutihBunder(
-            buttonName = "Button",
-            onButtonClick = {}
-        )
-        Button.PutihKotak(
             buttonName = "Button",
             onButtonClick = {}
         )
