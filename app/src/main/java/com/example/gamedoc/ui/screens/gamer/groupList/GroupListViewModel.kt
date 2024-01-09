@@ -1,4 +1,4 @@
-package com.example.gamedoc.ui.screens.gamer.doctorList
+package com.example.gamedoc.ui.screens.gamer.groupList
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,7 +12,6 @@ import com.example.gamedoc.model.group.GroupList
 import com.example.gamedoc.network.RetrofitInstance
 import com.example.gamedoc.network.group.GroupContainer
 import com.example.gamedoc.ui.ListScreens
-import com.example.gamedoc.ui.components.LoadingScreen
 import com.example.gamedoc.ui.screens.register.gamer.RegisterGamerUiState
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
