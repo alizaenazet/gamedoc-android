@@ -1,6 +1,6 @@
 package com.example.gamedoc.ui.screens.register.gamer
 
-import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gamedoc.model.ViewRouteParams
@@ -39,6 +40,8 @@ fun GamerRegisterView(
         is RegisterGamerUiState.Success -> {
             GamerRegister(
                 viewRouteParams,
+                invalidMessage = registerGamerUiState.invalidMessage,
+                isFailed = registerGamerUiState.isFailed,
 
                 userNameState = registerGamerViewModel.username,
                 userNameInput = { registerGamerViewModel.onInputUsername(it) },
@@ -88,6 +91,8 @@ fun GamerRegisterView(
 @Composable
 fun GamerRegister(
     viewRouteParams: ViewRouteParams,
+    invalidMessage: String?,
+    isFailed: Boolean,
 
     userNameState: String,
     userNameInput: (String) -> Unit,
@@ -203,7 +208,9 @@ fun GamerRegister(
             fieldName = "Password",
             info = "your password"
         )
-
+        if (isFailed){
+            Toast.makeText(LocalContext.current,invalidMessage,Toast.LENGTH_LONG).show()
+        }
         Button.RoundedFilled(buttonName = "Register", onButtonClick = { onRegisterClick() })
     }
 }

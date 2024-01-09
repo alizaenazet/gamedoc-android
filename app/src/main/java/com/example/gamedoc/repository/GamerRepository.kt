@@ -15,20 +15,14 @@ class GamerRepository(
         gamerRegisterBodyReq: GamerRegisterBodyReq
     ): ResponseBody<Nullable, Map<String, Array<String>>> {
 
+        try {
         val response = gamerApiService.register(gamerRegisterBodyReq).awaitResponse()
-
         when(response.code()) {
             422 -> {
-                val data: Map<String, Array<String>> = response.body()!!
+//                val data: Map<String, Array<String>> = response.body()!!
                 return ResponseBody(
                     response.code(),
-                    errorResponse = data
-                )
-            }
-
-            201 -> {
-                return ResponseBody(
-                    response.code(),
+//                    errorResponse = data
                 )
             }
 
@@ -36,5 +30,12 @@ class GamerRepository(
                     throw HttpException(response)
             }
         }
+
+        }catch (cause: java.io.EOFException){
+            return ResponseBody(
+                201,
+            )
+        }
+
     }
 }
