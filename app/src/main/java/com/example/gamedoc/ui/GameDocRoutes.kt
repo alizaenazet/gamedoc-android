@@ -21,6 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.gamedoc.data.SettingsDataStore
 import com.example.gamedoc.model.ViewRouteParams
 import com.example.gamedoc.ui.screens.auth.login.LoginScreen
+import com.example.gamedoc.ui.screens.register.doctor.DoctorRegisterView
 import com.example.gamedoc.ui.screens.register.gamer.GamerRegisterView
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -93,11 +94,12 @@ fun GameDocApp(){
             }
 
             composable(ListScreens.RegisterDoctor.name){
-                GamerRegisterView(
+                DoctorRegisterView(
                     viewRouteParams = ViewRouteParams(
-                        navController,
-                        dataStore
-                    ) { setIsAuthenticated(it) }
+                        navController = navController,
+                        dataStore = dataStore,
+                        setIsAuthenticated = { setIsAuthenticated(it) }
+                    )
                 )
             }
 

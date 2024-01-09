@@ -24,7 +24,7 @@ android {
             useSupportLibrary = true
         }
     }
-    val BASE_URL = "https://80df-125-164-14-253.ngrok-free.app"
+    val BASE_URL = "https://9fbc-125-164-14-253.ngrok-free.app"
 
     buildTypes {
         debug{

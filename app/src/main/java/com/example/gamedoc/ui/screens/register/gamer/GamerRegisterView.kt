@@ -1,6 +1,5 @@
 package com.example.gamedoc.ui.screens.register.gamer
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.gamedoc.model.InvalidMessgRes
 import com.example.gamedoc.model.ViewRouteParams
 import com.example.gamedoc.ui.ListScreens
 import com.example.gamedoc.ui.components.Button
