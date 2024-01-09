@@ -35,18 +35,16 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.gamedoc.ui.ListScreens
 import com.example.gamedoc.ui.theme.Secondary
 import com.example.gamedoc.ui.theme.poppins
 
 class BottomNavBar {
     companion object {
         @Composable
-        public fun UserDefault(
-            onClickDoctors : () -> Unit,
-            onClickGroups : () -> Unit,
-            onClickPost : () -> Unit,
-            onClickProfile : () -> Unit,
-            onClickFavorite : () -> Unit
+        public fun GamerDefault(
+            navController: NavController
         ) {
             Row (
                 modifier = Modifier
@@ -60,7 +58,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = onClickFavorite) {
+                    onClick = {navController.navigate(ListScreens.GamerFavoritesDoctor.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(painter = painterResource(id = R.drawable.ecg_heart),
@@ -78,25 +76,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = onClickPost) {
-                    Column (horizontalAlignment = Alignment.CenterHorizontally) {
-
-                        Icon(Icons.Default.LibraryAdd,
-                            contentDescription = "Post icon", tint = Color.White
-                        )
-                        Text(text = "Post", style = TextStyle(
-                            fontSize = 10.sp,
-                            color = Color.White,
-                            textAlign = TextAlign.Center,
-                            fontFamily = FontFamily(Font(R.font.poppins_medium))
-                        ) )
-                    }
-                }
-
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    contentPadding = PaddingValues(0.dp),
-                    onClick = onClickDoctors) {
+                    onClick = {navController.navigate(ListScreens.GamerDoctorList.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(painter = painterResource(id = R.drawable.clinical_notes),
@@ -114,7 +94,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = onClickGroups) {
+                    onClick = {navController.navigate(ListScreens.GamerGroupChat.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(Icons.Default.Group,
@@ -132,7 +112,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = onClickProfile) {
+                    onClick = {navController.navigate(ListScreens.GamerProfile.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(Icons.Default.AccountCircle,
@@ -151,12 +131,8 @@ class BottomNavBar {
         }
 
         @Composable
-        public fun UserRounded(
-            onClickDoctors : () -> Unit,
-            onClickGroups : () -> Unit,
-            onClickPost : () -> Unit,
-            onClickProfile : () -> Unit,
-            onClickFavorite : () -> Unit
+        public fun GamerRounded(
+            navController: NavController
         ) {
             Row (
                 modifier = Modifier
@@ -171,7 +147,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = onClickFavorite) {
+                    onClick = {navController.navigate(ListScreens.GamerFavoritesDoctor.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(painter = painterResource(id = R.drawable.ecg_heart),
@@ -189,25 +165,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = onClickPost) {
-                    Column (horizontalAlignment = Alignment.CenterHorizontally) {
-
-                        Icon(Icons.Default.LibraryAdd,
-                            contentDescription = "Post icon", tint = Color.White
-                        )
-                        Text(text = "Post", style = TextStyle(
-                            fontSize = 10.sp,
-                            color = Color.White,
-                            textAlign = TextAlign.Center,
-                            fontFamily = FontFamily(Font(R.font.poppins_medium))
-                        ) )
-                    }
-                }
-
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    contentPadding = PaddingValues(0.dp),
-                    onClick = onClickDoctors) {
+                    onClick = {navController.navigate(ListScreens.GamerDoctorList.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(painter = painterResource(id = R.drawable.clinical_notes),
@@ -225,7 +183,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = onClickGroups) {
+                    onClick = {navController.navigate(ListScreens.GamerGroupChat.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(Icons.Default.Group,
@@ -243,7 +201,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = onClickProfile) {
+                    onClick = {navController.navigate(ListScreens.GamerProfile.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(Icons.Default.AccountCircle,
@@ -414,21 +372,19 @@ class BottomNavBar {
             Modifier.fillMaxHeight(1f),
             verticalArrangement = Arrangement.SpaceAround
         ) {
-            UserDefault(
-                onClickDoctors = {},
-                onClickGroups = {},
-                onClickProfile = {},
-                onClickFavorite = {},
-                onClickPost = {},
-            )
-
-            UserRounded(
-                onClickDoctors = {},
-                onClickGroups = {},
-                onClickProfile = {},
-                onClickFavorite = {},
-                onClickPost = {},
-            )
+//            GamerDefault(
+//                onClickDoctors = {},
+//                onClickGroups = {},
+//                onClickProfile = {},
+//                onClickFavorite = {},
+//            )
+//
+//            GamerRounded(
+//                onClickGroups = {},
+//                onClickProfile = {},
+//                onClickFavorite = {},
+//                onClickPost = {},
+//            )
 
             DoctorDefault(
                 onClickDoctors = {},
