@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -33,6 +35,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -66,6 +69,7 @@ class GroupCard {
                     )
                     .background(Color.White)
                     .fillMaxWidth(1f)
+                    .height(70.dp)
                     .padding(horizontal = 10.dp, vertical = 6.dp)
                     .clickable { onCardClick },
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -77,12 +81,17 @@ class GroupCard {
                         .size(48.dp, 48.dp)
                         .clip(shape = RoundedCornerShape(100))
                 )
-                Column (verticalArrangement = Arrangement.spacedBy((-6).dp)) {
-                    Text(text = groupName,style = TextStyle(
+                Column (
+                    verticalArrangement = Arrangement.spacedBy((-6).dp),
+                    modifier = Modifier.clickable { onCardClick }
+                ) {
+                    Text(
+                        overflow = TextOverflow.Ellipsis,
+                        text = groupName,style = TextStyle(
                         fontSize = 20.sp,
                         color = Secondary,
                         textAlign = TextAlign.Start,
-                        fontFamily = FontFamily(Font(R.font.poppins_bold))
+                        fontFamily = FontFamily(Font(R.font.poppins_bold)),
                     ),
                         modifier = Modifier.padding(bottom = 0.dp)
                     )

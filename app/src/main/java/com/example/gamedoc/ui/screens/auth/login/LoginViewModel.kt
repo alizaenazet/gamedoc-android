@@ -1,5 +1,6 @@
 package com.example.gamedoc.ui.screens.auth.login
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.gamedoc.data.SettingsDataStore
 import com.example.gamedoc.model.InvalidMessgRes
+import com.example.gamedoc.network.RetrofitInstance
 import com.example.gamedoc.network.user.UserContainer
 import com.example.gamedoc.ui.ListScreens
 import kotlinx.coroutines.launch
@@ -51,8 +53,10 @@ class LoginViewModel(): ViewModel() {
                     _loginUiState = LoginUiState.Success(isSuccess = true);
                     dataStore.saveUserRoleToPreferencesStore(loginData.role)
                     dataStore.saveTokenToPreferencesStore(loginData.token)
+                    RetrofitInstance.setUserToken(loginData.token)
+                    Log.e("USER TOKEN", RetrofitInstance.userToken)
                     if (loginData.role == "gamer"){
-                        navController.navigate(ListScreens.GamerGroupChat.name)
+                        navController.navigate(ListScreens.GamerGroupList.name)
                     }else {
                         navController.navigate(ListScreens.DoctorGroupChat.name)
                     }

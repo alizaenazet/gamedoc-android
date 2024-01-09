@@ -76,25 +76,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = {navController.navigate(ListScreens.GamerDoctorList.name)}) {
-                    Column (horizontalAlignment = Alignment.CenterHorizontally) {
-
-                        Icon(painter = painterResource(id = R.drawable.clinical_notes),
-                            contentDescription = "Doctor icon", tint = Color.White
-                        )
-                        Text(text = "Doctors", style = TextStyle(
-                            fontSize = 10.sp,
-                            color = Color.White,
-                            textAlign = TextAlign.Center,
-                            fontFamily = FontFamily(Font(R.font.poppins_medium))
-                        ) )
-                    }
-                }
-
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    contentPadding = PaddingValues(0.dp),
-                    onClick = {navController.navigate(ListScreens.GamerGroupChat.name)}) {
+                    onClick = {navController.navigate(ListScreens.GamerGroupList.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(Icons.Default.Group,
@@ -165,25 +147,7 @@ class BottomNavBar {
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = {navController.navigate(ListScreens.GamerDoctorList.name)}) {
-                    Column (horizontalAlignment = Alignment.CenterHorizontally) {
-
-                        Icon(painter = painterResource(id = R.drawable.clinical_notes),
-                            contentDescription = "Doctor icon", tint = Color.White
-                        )
-                        Text(text = "Doctors", style = TextStyle(
-                            fontSize = 10.sp,
-                            color = Color.White,
-                            textAlign = TextAlign.Center,
-                            fontFamily = FontFamily(Font(R.font.poppins_medium))
-                        ) )
-                    }
-                }
-
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    contentPadding = PaddingValues(0.dp),
-                    onClick = {navController.navigate(ListScreens.GamerGroupChat.name)}) {
+                    onClick = {navController.navigate(ListScreens.GamerGroupList.name)}) {
                     Column (horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Icon(Icons.Default.Group,
