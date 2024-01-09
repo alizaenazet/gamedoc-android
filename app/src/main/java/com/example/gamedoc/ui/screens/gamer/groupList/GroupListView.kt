@@ -1,8 +1,6 @@
-package com.example.gamedoc.ui.screens.gamer.doctorList
+package com.example.gamedoc.ui.screens.gamer.groupList
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,9 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.gamedoc.model.ViewRouteParams
-import com.example.gamedoc.model.doctor.DoctorList
 import com.example.gamedoc.model.group.GroupList
-import com.example.gamedoc.model.group.GroupListItem
 import com.example.gamedoc.ui.ListScreens
 import com.example.gamedoc.ui.components.BottomNavBar
 import com.example.gamedoc.ui.components.ErrorScreen

@@ -22,7 +22,8 @@ import com.example.gamedoc.data.SettingsDataStore
 import com.example.gamedoc.model.ViewRouteParams
 import com.example.gamedoc.network.RetrofitInstance
 import com.example.gamedoc.ui.screens.auth.login.LoginScreen
-import com.example.gamedoc.ui.screens.gamer.doctorList.GamerGroupListView
+import com.example.gamedoc.ui.screens.gamer.GroupDetail.GroupDetailView
+import com.example.gamedoc.ui.screens.gamer.groupList.GamerGroupListView
 import com.example.gamedoc.ui.screens.register.doctor.DoctorRegisterView
 import com.example.gamedoc.ui.screens.register.gamer.GamerRegisterView
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -130,9 +131,16 @@ fun GameDocApp(){
             composable(ListScreens.GamerGroupDetail.name + "/{groupId}"){
                 val doctorId = it.arguments!!.getString("groupId").toString()
                 // TODO(finish: the doctor detail screen)
-                Column {
-                    Text(text = " page for $doctorId")
-                }
+                authCheck(dataStore,setIsAuthenticated)
+                if (isAuthenticated) GroupDetailView(
+                    groupid = doctorId,
+                    viewRouteParams = ViewRouteParams(
+                        navController = navController,
+                        dataStore = dataStore,
+                        setIsAuthenticated = { setIsAuthenticated(it) }
+                    )
+                )
+                else navController.navigate(ListScreens.Login.name)
             }
 
             composable(ListScreens.GamerFavoritesDoctor.name){
