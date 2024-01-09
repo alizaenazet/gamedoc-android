@@ -1,13 +1,12 @@
 package com.example.gamedoc.ui.screens.register.doctor
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.gamedoc.model.ViewRouteParams
 import com.example.gamedoc.model.doctor.DoctorRegisterBodyReq
 import com.example.gamedoc.network.doctor.DoctorContainer
 import com.example.gamedoc.ui.ListScreens
@@ -27,7 +26,7 @@ sealed interface DoctorRegisterUiState {
     object Loading : DoctorRegisterUiState
 }
 
-class DoctorRegisterViewModel(): ViewModel() {
+class DoctorRegisterViewModel(viewRouteParams: ViewRouteParams) : ViewModel() {
     var _doctorRegisterUiState: DoctorRegisterUiState by mutableStateOf(DoctorRegisterUiState.Success(false,null,false))
         private set
     private var _isAllValid by mutableStateOf(true)
@@ -196,41 +195,6 @@ class DoctorRegisterViewModel(): ViewModel() {
             validationFedbFun(true)
             _isAllValid = true
         }
-    }
-    fun servicesValidator(
-        input: String,
-        validationFb: (String) -> Unit,
-        validationFedbFun: (Boolean) -> Unit
-    ){
-        validationFedbFun(true)
-        _isAllValid = true
-
-        val inputValueMustBeInputed = listOf("personal","group","personal,group")
-        if (!inputValueMustBeInputed.contains(input)){
-            validationFb("input layanan invalid,cnth: \n 'personal,group' ")
-            validationFedbFun(false)
-            _isAllValid = false
-        }else {
-            validationFedbFun(true)
-            _isAllValid = true
-        }
-        if (input.contains(",") && input.length >= 4){
-            val toArray = input.split(",")
-            for (i in toArray){
-                if (i.first().isUpperCase()){
-                    validationFb("input layanan invalid,cnth: \n 'personal,group' ")
-                    validationFedbFun(false)
-                    _isAllValid = false
-                }
-            }
-        }else if(input.length >= 4){
-            if (input.first().isUpperCase()){
-                validationFb("input layanan invalid,cnth: \n 'personal,group' ")
-                validationFedbFun(false)
-                _isAllValid = false
-            }
-        }
-
     }
 
     fun usernameValidator(

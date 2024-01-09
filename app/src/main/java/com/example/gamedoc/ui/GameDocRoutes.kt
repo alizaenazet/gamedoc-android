@@ -20,7 +20,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gamedoc.data.SettingsDataStore
 import com.example.gamedoc.model.ViewRouteParams
+import com.example.gamedoc.network.RetrofitInstance
 import com.example.gamedoc.ui.screens.auth.login.LoginScreen
+import com.example.gamedoc.ui.screens.gamer.doctorList.GamerGroupListView
 import com.example.gamedoc.ui.screens.register.doctor.DoctorRegisterView
 import com.example.gamedoc.ui.screens.register.gamer.GamerRegisterView
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -36,10 +38,13 @@ enum class ListScreens(){
     DoctorGroupSetting,
     DoctorGroupCreate,
     DoctorUserSetting,
+    GamerGroupDetail,
     RegisterGamer,
     RegisterDoctor,
     GamerGroupChat,
-
+    GamerFavoritesDoctor,
+    GamerGroupList,
+    GamerProfile
 }
 
 @SuppressLint("CoroutineCreationDuringComposition", "FlowOperatorInvokedInComposition")
@@ -56,10 +61,11 @@ fun GameDocApp(){
     GlobalScope.launch {
             if (dataStore.getToken.first().isNotEmpty()){
                 setIsAuthenticated(true)
+                RetrofitInstance.setUserToken(dataStore.getToken.first())
                 startDestination = if (dataStore.getUserRole.first() == "doctor"){
                     ListScreens.DoctorGroupChat
                 }else {
-                    ListScreens.GamerGroupChat
+                    ListScreens.GamerGroupList
                 }
             }
     }
@@ -109,7 +115,33 @@ fun GameDocApp(){
                 else navController.navigate(ListScreens.Login.name)
             }
 
-            composable(ListScreens.GamerGroupChat.name){
+            composable(ListScreens.GamerGroupList.name){
+                authCheck(dataStore,setIsAuthenticated)
+                if (isAuthenticated) GamerGroupListView(
+                    viewRouteParams = ViewRouteParams(
+                        navController = navController,
+                        dataStore = dataStore,
+                        setIsAuthenticated = { setIsAuthenticated(it) }
+                    )
+                )
+                else navController.navigate(ListScreens.Login.name)
+            }
+
+            composable(ListScreens.GamerGroupDetail.name + "/{groupId}"){
+                val doctorId = it.arguments!!.getString("groupId").toString()
+                // TODO(finish: the doctor detail screen)
+                Column {
+                    Text(text = " page for $doctorId")
+                }
+            }
+
+            composable(ListScreens.GamerFavoritesDoctor.name){
+                authCheck(dataStore,setIsAuthenticated)
+                if (isAuthenticated) Logined(userRole = "Gamer", navController)
+                else navController.navigate(ListScreens.Login.name)
+            }
+
+            composable(ListScreens.GamerProfile.name){
                 authCheck(dataStore,setIsAuthenticated)
                 if (isAuthenticated) Logined(userRole = "Gamer", navController)
                 else navController.navigate(ListScreens.Login.name)
