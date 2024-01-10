@@ -26,7 +26,7 @@ sealed interface DoctorRegisterUiState {
     object Loading : DoctorRegisterUiState
 }
 
-class DoctorRegisterViewModel(viewRouteParams: ViewRouteParams) : ViewModel() {
+class DoctorRegisterViewModel() : ViewModel() {
     var _doctorRegisterUiState: DoctorRegisterUiState by mutableStateOf(DoctorRegisterUiState.Success(false,null,false))
         private set
     private var _isAllValid by mutableStateOf(true)
