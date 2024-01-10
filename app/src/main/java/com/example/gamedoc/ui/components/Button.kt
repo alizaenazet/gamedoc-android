@@ -187,61 +187,62 @@ class Button {
             if (currentSelectedIndex >= 0) {
                 selectedIndex(currentSelectedIndex);
             }
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.TopStart)
-                    .clickable { expanded = !expanded }
-                    .background(Color.White, shape = RoundedCornerShape(size = 6.dp))
-                    .clip(shape = RoundedCornerShape(6.dp))
-                    .border(
-                        BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
-                        RoundedCornerShape(6.dp)
-                    )
-                    .defaultMinSize(minWidth = 190.dp)
-                    .padding(vertical = 7.dp, horizontal = 35.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier.defaultMinSize(minWidth = 130.dp)
-                ) {
-                    Text(
-                        text = if (currentSelectedIndex >= 0) {
-                            options[currentSelectedIndex]
-                        } else {
-                            text
-                        },
-                        color = Secondary,
-                        fontFamily = FontFamily(Font(R.font.poppins_medium)),
-                        modifier = Modifier.padding(start = 3.dp)
-                    )
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowDown,
-                        contentDescription = "dropdown icon",
-                        tint = Secondary
-                    )
-                }
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = {
-                        closeDropDown()
-                    },
+            Row(modifier= Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
+                Box(
                     modifier = Modifier
-                        .background(Color.White)
-                ) {
-                    for ((index, value) in options.withIndex()) {
-                        DropdownMenuItem(
-                            text = { Text(text = value) },
-                            onClick = {
-                                currentSelectedIndex = index
-                            },
-                            enabled = currentSelectedIndex != index
+                        .fillMaxSize()
+                        .wrapContentSize(Alignment.TopStart)
+                        .clickable { expanded = !expanded }
+                        .background(Color.White, shape = RoundedCornerShape(size = 6.dp))
+                        .clip(shape = RoundedCornerShape(6.dp))
+                        .border(
+                            BorderStroke(2.dp, brush = Brush.horizontalGradient(colors)),
+                            RoundedCornerShape(6.dp)
                         )
+                        .defaultMinSize(minWidth = 190.dp)
+                        .padding(vertical = 7.dp, horizontal = 35.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier.defaultMinSize(minWidth = 130.dp)
+                    ) {
+                        Text(
+                            text = if (currentSelectedIndex >= 0) {
+                                options[currentSelectedIndex]
+                            } else {
+                                text
+                            },
+                            color = Secondary,
+                            fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                            modifier = Modifier.padding(start = 3.dp)
+                        )
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowDown,
+                            contentDescription = "dropdown icon",
+                            tint = Secondary
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = {
+                            closeDropDown()
+                        },
+                        modifier = Modifier
+                            .background(Color.White)
+                    ) {
+                        for ((index, value) in options.withIndex()) {
+                            DropdownMenuItem(
+                                text = { Text(text = value) },
+                                onClick = {
+                                    currentSelectedIndex = index
+                                },
+                                enabled = currentSelectedIndex != index
+                            )
+                        }
                     }
                 }
             }
-
 
         }
 
