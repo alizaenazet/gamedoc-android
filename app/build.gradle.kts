@@ -8,6 +8,10 @@ android {
     namespace = "com.example.gamedoc"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.example.gamedoc"
         minSdk = 24
@@ -20,8 +24,18 @@ android {
             useSupportLibrary = true
         }
     }
+    val BASE_URL = "https://29ea-114-141-92-36.ngrok-free.app"
+//    val BASE_URL = "https://84d8c3a5-117b-49d8-a01f-6627c2f80d9f.mock.pstmn.io"
 
     buildTypes {
+        debug{
+            buildConfigField("String","BASE_URL","\"$BASE_URL/api/\"")
+        }
+
+
+        getByName("release"){
+            buildConfigField("String","BASE_URL","\"$BASE_URL/api/\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -53,6 +67,10 @@ android {
 dependencies {
     val squareupVersion = "2.9.0"
     val lifecyleVersion = "2.6.2"
+
+    implementation("io.coil-kt:coil-compose:1.4.0") // Sesuaikan dengan versi terbaru yang tersedia
+
+    implementation("androidx.compose.material3:material3:1.1.2")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
@@ -71,7 +89,7 @@ dependencies {
 
     // Retrofit and okHttp
     implementation("com.squareup.retrofit2:retrofit:$squareupVersion")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:$squareupVersion")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
     // Coroutines and viewmode library
@@ -83,4 +101,13 @@ dependencies {
 
     //  google icons library
     implementation("androidx.compose.material:material-icons-extended")
+
+    // data store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Jepatck Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.5")
+
+    //coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
